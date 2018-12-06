@@ -9,7 +9,6 @@ uint16 strlength(string ch)
         return i;
 }
 
-/* Added in episode 3*/ /*This function compares two strings and returns true (1) if they are equal or false (0) if they are not equal */
 
 uint8 strEql(string ch1,string ch2)                     
 {
@@ -21,11 +20,37 @@ uint8 strEql(string ch1,string ch2)
 			uint8 i = 0;
 			for(i;i<size;i++)
 			{
-					if(ch1[i] != ch2[i]) result = 0;
+				if(ch1[i] != ch2[i]) result = 0;
 			}
         }
         return result;
 }
 
+string strcat(string ch1,string ch2)                     
+{
+	string result;    
+	uint8 size1 = strlength(ch1);
+	uint8 size2 = strlength(ch2);
+		uint8 i = 0;
+			for(i;i<size2;i++)
+			{
+				result[size1+i]=ch2[i];
+			}
+        return result;
+}
+uint16 atoi(string ch)
+{
+	uint16 i=0, res=0, temp=1, len= strlength(ch);
+	while(len--){
+	temp = ch[i]-'0';
+	uint16 x=len;
+	while(x--){
+		temp*=10;
+	}
+	res+=temp;
+	i++;	
+	}
+	return res;
+}
 
 #endif

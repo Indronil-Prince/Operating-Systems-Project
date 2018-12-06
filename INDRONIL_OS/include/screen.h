@@ -38,7 +38,7 @@ void scrollUp(uint8 lineNumber)
 {
         string vidmem = (string)0xb8000;
         uint16 i = 0;
-        clearLine(0,lineNumber-1);                                            //updated
+        clearLine(0,lineNumber-1);                                           
         for (i;i<sw*(sh-1)*sd;i+=2)
         {
                 vidmem[i] = vidmem[i+sw*sd*lineNumber];
@@ -107,7 +107,7 @@ void printch(char c)
 void print (string ch)
 {
         uint16 i = 0;
-        uint8 length = strlength(ch);              //Updated (Now we store string length on a variable to call the function only once)
+        uint8 length = strlength(ch);           
         for(i;i<length;i++)
         {
                 printch(ch[i]);
@@ -117,7 +117,7 @@ void print (string ch)
 void printnum (int32 num) {
 	int32 rmdr;
 	if (num < 0) {
-		rmdr = -num;
+	rmdr = -num;
         printch('-');
 	}
 	else

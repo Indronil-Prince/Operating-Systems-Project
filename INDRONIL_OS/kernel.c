@@ -2,50 +2,47 @@
 #include "include/kb.h"
 #include "include/string.h"
 #include "include/substr.h"
-kmain()
+int indronil_main()
 {
-       clearScreen();
+           clearScreen();
 	   
-       print("Welcome to my operating system!\n________INDRONIL_OS________\nUser login\n");
+       	   print("Welcome to my operating system!\n________INDRONIL_OS________\n\nUser login\n");
 	   string username = "indronil";
 	   string password = "1507105";
 	   string history = "";
-	   uint8 n = 1;
+	   uint8 n=1;
 	   
-	   string inp = 0;
-	   while (1) {
+	   string inp = 0, len= "";
+
+		while (1) {
 		   uint8 uOK = 0, pOK = 0;
 		   
 		   print("Username: ");
 		   inp = readStr();
 		   if (strEql(inp, username)) uOK = 1;
 		   
-		   print("password: ");
+		   print("Password: ");
 		   inp = readStr();
 		   if (strEql(inp, password)) pOK = 1;
 		   
 		   if (uOK && pOK) {
-			   print("Login Done!\n");
+			   print("Login Succesful!\n");
 			   break;
 		   }
 		   print("Wrong info. Try again\n");
 	   }
 	   
        while (1)
-  			{
-			char b = n + '0';
-			string c;
-			c[0]=b;			
-			print("\nINDRONIL_OS( ");
-			print(c);
+  			{		
+			print("\nINDRONIL_OS(");
+			printnum(n);
 			print(")--> ");
 			inp = readStr();
 			if(strEql(inp,"cmd"))
 			{
 				print("New cmd opened!\n");
 				strcat(history, "cmd\n");
-				n++;
-				
+				n++;			
 			}
 			else if(strEql(inp,"clear"))
 			{
@@ -64,9 +61,26 @@ kmain()
 				screen_substr(inp);
 				strcat(history, "substr\n");
 			}
+			else if(strEql(inp,"strlen"))
+			{
+				print("Enter string: ");
+				inp = readStr();
+				printnum(strlength(inp));
+				strcat(history, "strlen\n");
+			}
 			else if(strEql(inp,"help"))
 			{
-				print("clear\t: Clear screen.\ncmd : Starts new cmd.\nsubstr : Finds substring.\nexit : Exit from present cmd.\nshutdown : Turning off the OS.\nhistory : Shows the history.\nmname : Shows the user name.\n");
+				print("clear : Clear screen.\n");
+				print("cmd : Starts new cmd.\n");
+				print("substr : Finds substring.\n");
+				print("exit : Exit from present cmd.\n");
+				print("shutdown : Turning off the OS.\n");
+				print("history : Shows the history.\n");
+				print("mname : Shows the user name.\n");
+				print("strlen : Gives length of a given string.\n");
+				print("print : Print a given string.\n");
+				print("clrline : Clears given lines in cmd.\n");
+				//print("logout : Logout.\n");
 				strcat(history, "help\n");
 			}
 			else if(strEql(inp,"shutdown"))
@@ -77,21 +91,44 @@ kmain()
 			else if(strEql(inp,"mname"))
 			{
 				print(username);
+				print("\n");
 				strcat(history, "mname\n");
-			}			
+			}	
+			else if(strEql(inp,"print"))
+			{
+				print("Enter string: ");
+				inp = readStr();
+				print(inp);
+				strcat(history, "print\n");
+			}	
+			else if(strEql(inp,"clrline"))
+			{
+				uint16 a, b;				
+				print("From: ");
+				inp = readStr();
+				a=atoi(inp);
+				inp = 0;				
+				print("To: ");
+				inp = readStr();
+				b=atoi(inp);		
+				clearLine(a,b);
+				print("Line "); printnum(a); print(" to"); printnum(b); print(" cleared!\n");
+				strcat(history, "clrline\n");
+			}		
 			else if(strEql(inp,"exit"))
 			{
 					print("Exits from present cmd!\n");
-					n--;
 					strcat(history, "exit\n");
-				if(n==0)	{
+					n--;					
+					if(n==0)	{
 						print("Turning off my OS!\n");
-						break;}		
-					
+						break;}	
 			}
 			else
 			{
 					print("Bad command!\n");
 			}
-       }
+        }
+       
+	return 0;
 }
